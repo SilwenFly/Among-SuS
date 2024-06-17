@@ -53,7 +53,7 @@ elif args.Arg1 == "oral":
     print(result)
     
 
-elif re.match(r'^Oral\d+$', args.Arg1): #si l'argument est de la forme Oral suivi de chiffres
+elif re.match(r'^oral\d+$', args.Arg1): #si l'argument est de la forme Oral suivi de chiffres
     s = args.Arg1 #récupère l'argument
     numbers = ''.join(i for i in s if i.isdigit()) #récupère les chiffres
     id = int(numbers) #convertit en int
