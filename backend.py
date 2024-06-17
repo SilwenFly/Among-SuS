@@ -41,7 +41,7 @@ elif args.Arg1 == "verbe":
     print(result)
     
 elif args.Arg1 == "oral":
-    c.execute("SELECT COUNT(id) FROM quiz_verbe")
+    c.execute("SELECT COUNT(id) FROM quiz_oral")
     rows = c.fetchone()
     if rows[0] == 0:
         print("Empty Database")
