@@ -1,7 +1,8 @@
 import argparse
 import sqlite3
 import random
-from nava import play  #Bibliothèque pour jouer du son
+from playsound import playsound #Bibliothèque pour jouer du son
+import re
 
 # Create the parser
 parser = argparse.ArgumentParser(description="Backend of Among SuS")
@@ -26,6 +27,7 @@ if  args.Arg1 == "vocab":
     rows = c.fetchone()
     result = '? '.join(map(str, rows))
     print(result)
+    
 elif args.Arg1 == "verbe":
     c.execute("SELECT COUNT(id) FROM quiz_verbe")
     rows = c.fetchone()
@@ -45,15 +47,19 @@ elif args.Arg1 == "oral":
         print("Empty Database")
         exit()
     random_number = random.randint(1,rows[0])
-    print(str(random_number))
+    c.execute("SELECT questions,choix,reponse,id FROM quiz_oral WHERE id = ?",(random_number,))
+    rows = c.fetchone()
+    result = '? '.join(map(str, rows))
+    print(result)
     
 
-elif args.Arg1 == "OralId":
+elif re.match(r'^Oral\d+$', args.Arg1): #si l'argument est de la forme Oral suivi de chiffres
     s = args.Arg1 #récupère l'argument
     numbers = ''.join(i for i in s if i.isdigit()) #récupère les chiffres
     id = int(numbers) #convertit en int
     c.execute("SELECT path from quiz_oral WHERE id = ?",(id,))
     rows = c.fetchone()
-    
+    path = "src/" + rows[0]
+    playsound(path)
 else:
     print("GNEU,GNEU PAS COMPRIS")
