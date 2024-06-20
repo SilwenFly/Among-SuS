@@ -73,8 +73,29 @@ try:
                     print(f"Failed to play the audio file: {e}")
             else:
                 print("No record found with the given ID.")
-        else:
-            print("GNEU,GNEU PAS COMPRIS")
 
+        elif args.Arg1 == "trou":
+            c.execute("SELECT COUNT(id) FROM quiz_texte_trous")
+            rows = c.fetchone()
+            if rows[0] == 0:
+                print("Empty Database")
+                exit()
+            random_number = random.randint(1, rows[0])
+            c.execute("SELECT texte, q1, q2, q3, q4, rep1, rep2, rep3, rep4 FROM quiz_texte_trous WHERE id = ?", (random_number,))
+            rows = c.fetchone()
+            result = ' | '.join(map(str, rows))
+            print(result)
+
+        elif args.Arg1 == "comp":
+            c.execute("SELECT COUNT(id) FROM quiz_compréhension")
+            rows = c.fetchone()
+            if rows[0] == 0:
+                print("Empty Database")
+                exit()
+            random_number = random.randint(1, rows[0])
+            c.execute("SELECT texte, questions, choix, reponse FROM quiz_compréhension WHERE id = ?", (random_number,))
+            rows = c.fetchone()
+            result = ' | '.join(map(str, rows))
+            print(result)
 except sqlite3.Error as e:
     print(f"An error occurred: {e}")
