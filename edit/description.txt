@@ -1,0 +1,1 @@
+quiz_vocabulaire : >>> Un quiz surprenant dans lequel votre vocabulaire est durement mis a l'epreuve. >>> Lisez la phrase proposee et choisissez parmis les 3 reponses possibles, laquelle corresponds le mieux.
