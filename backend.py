@@ -51,17 +51,10 @@ try:
                 print("Empty Database")
                 exit()
             random_number = random.randint(1, rows[0])
-            c.execute("SELECT questions, choix, reponse, id FROM quiz_oral WHERE id = ?", (random_number,))
+            c.execute("SELECT path, choix, reponse, questions FROM quiz_oral WHERE id = ?", (random_number,))
             rows = c.fetchone()
             result = ' | '.join(map(str, rows))
             print(result)
-
-        elif re.match(r'^oral\d+$', args.Arg1):  # si l'argument est de la forme Oral suivi de chiffres
-            s = args.Arg1  # récupère l'argument
-            numbers = ''.join(i for i in s if i.isdigit())  # récupère les chiffres
-            id = int(numbers)  # convertit en int
-            c.execute("SELECT path FROM quiz_oral WHERE id = ?", (id,))
-            rows = c.fetchone()
             if rows:
                 path = "src/" + rows[0]
                 try:
@@ -73,7 +66,7 @@ try:
                     print(f"Failed to play the audio file: {e}")
             else:
                 print("No record found with the given ID.")
-
+            
         elif args.Arg1 == "trou":
             c.execute("SELECT COUNT(id) FROM quiz_texte_trous")
             rows = c.fetchone()
