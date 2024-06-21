@@ -74,7 +74,7 @@ try:
                 print("Empty Database")
                 exit()
             random_number = random.randint(1, rows[0])
-            c.execute("SELECT texte, q1, q2, q3, q4, rep1, rep2, rep3, rep4 FROM quiz_texte_trous WHERE id = ?", (random_number,))
+            c.execute("SELECT texte, question, reponse FROM quiz_texte_trous WHERE id = ?", (random_number,))
             rows = c.fetchone()
             result = ' | '.join(map(str, rows))
             print(result)
